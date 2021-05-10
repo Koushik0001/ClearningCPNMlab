@@ -2,13 +2,8 @@
 int rec(int);
 int main()
 {   
-    int i=1;
-    while(rec(i)<2147483647)
-    {
+    for (int i=1;i<=46;i++)
         printf("%d\n",rec(i));
-        i++;
-    }
-    printf("%d",i);
     return 0;
 }
 int rec(int x)
