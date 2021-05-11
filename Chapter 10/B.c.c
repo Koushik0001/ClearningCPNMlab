@@ -10,12 +10,9 @@ int rec(int x)
 {
     int y;
     if(x==1)
-        return(1);
+        return(x);
     else if (x==0)
-    {
-        return 0;
-    }
-    
+        return (x);
     else
     {
         y = rec(x-1)+rec(x-2);
