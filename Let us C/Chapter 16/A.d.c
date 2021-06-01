@@ -1,8 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-char **p ,temp[50]; int nn,len,l,i;
-void comp();
+char **p ,temp[50]; int nn,len,i,j;
+
 int main()
 {
     int k;
@@ -18,22 +18,28 @@ int main()
         p[k]=(char*)malloc(len+1);
         strcpy(p[k],temp);
     }
-    for(k=1;k<nn;k++)
+
+    for(k=0;k<nn;k++)
     {
-       for(l=0;l<nn;l++)
-       {
-           i=strcmp(p[k],p[l]);
-           if(i<0)
-           {
-               strcpy(temp,p[k]);
-               strcpy(p[k],p[l]);
-               strcpy(p[l],temp);
-           }
-       }
+        len=strlen(p[k]);
+        for(i=0;i<(len/2);i++)
+        {
+            char t;
+            t=p[k][i];
+            p[k][i]=p[k][len-i-1];
+            p[k][len-i-1]=t;
+        }
     }
-    for(k=1;k<nn;k++)
+
+    for(i=0;i<nn/2;i++)
     {
-        puts(p[k]);
+        char *t;
+        t=p[i];
+        p[i]=p[nn-i-1];
+        p[nn-i-1]=t;
     }
+
+    for(i=0;i<nn;i++)
+        puts(p[i]);
     return 0;
 }
