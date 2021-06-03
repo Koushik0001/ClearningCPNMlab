@@ -36,7 +36,7 @@ void main()
     }
     do
     {                                
-        printf("What do you want to know:1)Details of a student.\n                         2)Names of from same batch.");
+        printf("What do you want to know:1)Details of a student.\n\t\t\t2)Names of from same batch.");
         fflush(stdin);
         scanf("%d",&op);
         if(op==1)
@@ -71,7 +71,7 @@ void stuinfo(struct student s[450],int ne)
         }
     }
     if(status=='n')
-        printf("INVALID ROLL NUMBER.");
+        printf("INVALID ROLL NUMBER.\n");
 }
 void batch(struct student s[450],int ne)
 {
@@ -95,5 +95,5 @@ void batch(struct student s[450],int ne)
     if(status=='y')
         printf("Total %d Entries Found.\n",numberofentries);
     else if(status=='n')
-        printf("No Entries Found.");
+        printf("No Entries Found.\n");
 }

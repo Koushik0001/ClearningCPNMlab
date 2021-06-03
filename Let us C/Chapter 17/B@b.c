@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#include<stdlib.h>
+
 struct customer
 {
     char accno[25],name[25]; float balance;
