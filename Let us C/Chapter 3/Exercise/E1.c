@@ -21,6 +21,8 @@ else
         printf("The loss is %f\n",loss);
     }
 //koushik is learning git with the help of this file.
+while((char zp = getchar()) != '\n');
+
 
 return 0;
 }

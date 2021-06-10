@@ -13,5 +13,6 @@ if(remainder==0)
     printf("The integer is an even number.");
 else
     printf("The integer is an odd number.");
+
 return 0;
 }
