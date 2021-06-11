@@ -5,6 +5,6 @@ int main()
     int i, sum=0;
     for(i=1;i<=50;i++)
         sum=sum+i;
-    printf("%4d",sum);
+    printf("summation of all the numbers from 1 to 50 = %4d",sum);
     return 0;
 }

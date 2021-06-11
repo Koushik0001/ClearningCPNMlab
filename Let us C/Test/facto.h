@@ -1,6 +1,6 @@
 float degree_to_rad(float);
 float facto(int);
-float fpower(float ,int);
+float fpower(float ,float);
 float permu(int ,int);
 float combo(int ,int);
 float mod(float);
@@ -8,6 +8,7 @@ float fsin(float);
 float fcos(float);
 float ftan(float);
 float fcot(float);
+float multiple_down_to(float, int);
 
 
 float facto(int num)
@@ -17,17 +18,20 @@ float facto(int num)
         factorial = i* factorial;
     return (factorial);
 }
-float fpower(float base, int power)
+float fpower(float base, float power)
 {
-    float ans=1;
-    if(power != 0)
+    base -=1;
+    float ansx1=1 + power*base ,ansx0=0;
+    int i=2;
+    while(1)
     {
-        for(int i=0; i<power; i++)
-            ans =ans * base;
-        return(ans);
+        ansx1 = ansx1 + multiple_down_to(power,i) * fpower(base,i)/facto(i);
+        i++;
+        if(i>8 || mod(ansx1-ansx0)<0.00000001)
+            break;
+        ansx0 = ansx1;
     }
-    else if(power == 0)
-        return(1);    
+    return(ansx1);    
 }
 float permu(int n, int r)
 {
@@ -104,4 +108,14 @@ float fcot(float x)
 {
     if(fsin(x) != 0)
         return(fcos(x)/fsin(x));
+}
+float multiple_down_to(float num,int number_of_terms)
+{
+    float ans=1;
+    for (int i=0;i<number_of_terms; i++)
+    {
+        ans = ans * num;
+        num--;
+    }
+    return(ans);
 }

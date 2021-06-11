@@ -5,9 +5,9 @@ int main()
 {
     float fahr, celsius;
     float lower, upper, step;
-    lower = 0; /* lower limit of temperatuire scale */
-    upper = 300; /* upper limit */
-    step = 20; /* step size */
+    lower = 32; /* lower limit of temperatuire scale */
+    upper = 212; /* upper limit */
+    step = 1; /* step size */
     printf("\n\n");
     printf("Farenhite\tCelsius\n");
     for(fahr = upper;fahr >= lower;fahr = fahr - step )

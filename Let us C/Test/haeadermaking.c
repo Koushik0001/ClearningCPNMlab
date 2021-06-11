@@ -2,10 +2,10 @@
 #include<C:\Users\Dell\Desktop\Codding\C Learning\Let us C\Test\facto.h>
 int main()
 {
-    float num1,num2,num3;
-    printf("enter the angle in degree");
-    scanf("%f",&num1);
-    printf("%.5f",fcos(num1));
+    float num1,num2;
+    printf("x^y");
+    scanf("%f^%f",&num1,&num2);
+    printf("%f",fpower(num1,num2));
     /*scanf("%d%d",&num1,&num2);
     printf("%.0f\n",permu(num1,num2));
     printf("Enter the number for combo : ");
