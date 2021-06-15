@@ -1,89 +1,51 @@
 #include<stdio.h>
-#include<C:\Users\Dell\Desktop\Codding\C Learning\CPNM Class ( 2nd sem )\CPNM Lab\Assignment 3\insertion_sort.h>
-int find_prime_factors(int,int[]);
-int largest_common_factor(int[],int,int[],int);
 
+int find_highest_common_factor(int,int);
 int main()
 {
     int num1, num2, hcf;
-    int pf_num1[40],number_of_pf_num1, pf_num2[40],number_of_pf_num2;
-    printf("Enter two intiger numbers : ");
+    
+    printf("\n\n\nEnter two intiger numbers : ");
     scanf("%d%d",&num1,&num2);
 
-    number_of_pf_num1 = find_prime_factors(num1,pf_num1);
-    number_of_pf_num2 = find_prime_factors(num2,pf_num2);
-
-    insertion_sort(pf_num1,number_of_pf_num1);
-    insertion_sort(pf_num2,number_of_pf_num2);
-
-    if(number_of_pf_num1==0 || number_of_pf_num2==0)
-        hcf = 1;
-    else if(number_of_pf_num1>number_of_pf_num2)
-        hcf = largest_common_factor(pf_num1, number_of_pf_num1, pf_num2, number_of_pf_num2);
-    else if(number_of_pf_num1<number_of_pf_num2)
-       hcf = largest_common_factor(pf_num2, number_of_pf_num2, pf_num1, number_of_pf_num1);
+    hcf = find_highest_common_factor(num1,num2);
+    float x; 
+    if (num1<num2)
+    {
+        x = num2/num1;
+        printf("Output : %d/%d = %d\n\n\n",num2/hcf,num1/hcf,num2/num1);
+    }
     else
     {
-        if(pf_num2[0]<pf_num1[0])
-            hcf = largest_common_factor(pf_num1, number_of_pf_num1, pf_num2, number_of_pf_num2);
-        else
-            hcf = largest_common_factor(pf_num2, number_of_pf_num2, pf_num1, number_of_pf_num1);
-    } 
-
-    if (num1 < num2)
-        printf("%d/%d = %f",num2/hcf,num1/hcf,num2/num1);
-    else
-        printf("%d/%d = %f",num1/hcf,num2/hcf,num1/num2);
+        x = num1/num2;
+        printf("Output : %d/%d = %d\n\n\n",num1/hcf,num2/hcf,num1/num2);
+    }
     return 0;
 }
 
-int find_prime_factors(int num, int prime_factors[])
+int find_highest_common_factor(int num1, int num2 )
 {
-    int i, j=0, t=num;
-
-    for (i=2;i<=num; i++)
+    int i, j=0, t1, t2, hcf=1;
+    if (num1<num2)
     {
-        while(t%i == 0)
-        {
-            prime_factors[j]= i;
-            t = t/i; 
-            j++;
-        }
-        j-1;
+        t1 = num1;
+        t2 = num2;
     }
-    if(j==0)
+    else
     {
-        j=1;
-        prime_factors[0]=num;
+        t1 = num2;
+        t2 = num1;
     }
-    return (j);
-}
-
-int largest_common_factor(int pf_num1[],int npfnum1,int pf_num2[],int npfnum2 )
-{
-    for(int i=0;i<npfnum1;i++)
-        printf("%d ",pf_num1[i]);
-    printf("\n\n");
-    for(int i=0;i<npfnum2;i++)
-        printf("%d *",pf_num2[i]);
+    int t = t1;
     
-    int hcf = 1;
-    int j = 0;
-    for(int i=0; i<npfnum2; i++)
+    for (i=2;i<=t; i++)
     {
-        if(i<npfnum2 && j==npfnum1)
-            j=0;
-        while(j<npfnum1)
+        while(t1%i==0 && t2%i==0) 
         {
-            if(pf_num2[i]==pf_num1[j])
-            {
-                hcf = hcf * pf_num2[i];
-                j++;
-                break; 
-            }
-            j++;
+            hcf = hcf*i;
+            t1 = t1/i;
+            t2 = t2/i; 
         }
     }
-    printf("\n hcf = %d\n\n",hcf);
-    return(hcf);
+    return (hcf);
 }
