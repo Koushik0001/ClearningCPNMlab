@@ -8,8 +8,8 @@ int main()
 
     int N100,N50,N10;
     N100 = amount/100;
-    N50 = (amount%100)/50;
-    N10 = (amount - N100*100 - N50*50)/10;
+    N50 = amount%100/50;
+    N10 = amount%100%50/10;
     printf("Notes of denominstions 100 = %d\n",N100);
     printf("Notes of denominstions 50 = %d\n",N50);
     printf("Notes of denominstions 10 = %d",N10);
