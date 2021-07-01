@@ -14,11 +14,10 @@ int main()
         printf("\nenter the binary number: ");
         scanf("%f",&bin);
         decimal = binary_to_dcimal(bin);
-        printf("(%d)10",decimal);
         break;
     
     case 2:
-
+        float oct;
         break;
 
     case 3:
@@ -33,7 +32,7 @@ int main()
     return 0;
 }
 
-float binary_to_dcimal(bin)
+float binary_to_dcimal(float bin)
 {
     
 }
