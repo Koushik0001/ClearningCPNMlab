@@ -1,3 +1,6 @@
+/*13. Write a C program which accepts number obtained by five students in five subjects. Print the
+total marks obtained by all the students. Also determine the highest total marks.*/
+
 #include<stdio.h>
 int getint();
 int main()
@@ -25,7 +28,7 @@ int main()
             continue;
         }
     }
-    printf("\nThe highest total marks is %d and was obtained by student%d",x,k+1);
+    printf("\nThe highest total marks is %d and was obtained by student%d\n\n",x,k+1);
     return 0;
 }
 

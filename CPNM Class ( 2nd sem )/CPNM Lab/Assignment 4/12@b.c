@@ -1,13 +1,19 @@
+/* 12.b. Write a program in C to read n number of values in an array. After that, display the
+frequency of each element present in that array (i.e. count the total number of duplicate
+elements in that array). Then find the element having minimum and maximum frequency .
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
 int main()
 {
-    int n, *array1, frequency;
+    int n, *array1,*frequencies_of_elements, frequency;
     printf("Enter the number of elements(n) : ");
     scanf("%d",&n);
 
     array1 = (int *) malloc(n * sizeof(int));
+    frequencies_of_elements = (int *) malloc(n * sizeof(int));
 
     printf("Enter the elements : \n\t");
     for(int i=0; i<n ; i++)
@@ -32,27 +38,44 @@ int main()
             }
         }
         printf("Frequency of element'%d' is %d\n",t,frequency);
+        frequencies_of_elements[i]=frequency;
         frequency = 1;
     }
-    int x = array1[0];
-    for(int i=1;i<n;i++)
+
+    int x = frequencies_of_elements[0];
+    for(int i=0; i<n ; i++)
     {
-        if(x < array1[i])
+        if(x<frequencies_of_elements[i])
         {
-            x = array1[i];
+            x=frequencies_of_elements[i];
             continue;
         }
     }
-    printf("\nThe largest element of the array is %d\n",x);
-    x=array1[0];
-    for(int i=1;i<n;i++)
+
+    printf("The element(s) with highest frequency %d is (are) : ",x);
+    for(int i=0; i<n ; i++)
     {
-        if(x > array1[i])
+        if(frequencies_of_elements[i] == x)
+            printf("%d ",array1[i]);
+    }
+    printf("\n");
+
+    x = frequencies_of_elements[0];
+    for(int i=0; i<n ; i++)
+    {
+        if(x>frequencies_of_elements[i])
         {
-            x = array1[i];
+            x=frequencies_of_elements[i];
             continue;
         }
     }
-    printf("The smallest element of the array is %d",x);
+
+    printf("The element(s) with lowest frequency %d is (are) : ",x);
+    for(int i=0; i<n ; i++)
+    {
+        if(frequencies_of_elements[i] == x)
+            printf("%d ",array1[i]);
+    }
+
     return 0;
 }

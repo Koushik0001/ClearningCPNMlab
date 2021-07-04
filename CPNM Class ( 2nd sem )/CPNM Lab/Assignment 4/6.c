@@ -1,3 +1,6 @@
+/*6. Write a menu driven program to accept a number in any Number System [from Binary, Decimal,
+Octal, and Hex] and convert and display the same in any other amongst these.*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -17,10 +20,12 @@ char* decimal_to_hex(int);
 int main()
 {
     int op,decimal,i=0;
-    char *result, bin[100],oct[100],hex[100];
-    printf("Enter a number in number system:\n\t1)Binary\n\t2)Ocatl\n\t3)Hex\n\t4)decimal\n\t");
+    char *result1,*result2,*result3,*result4, bin[100],oct[100],hex[100];
+    printf("Enter in which number system you want enter number:\n\t1)Binary\n\t2)Ocatl\n\t3)Hex\n\t4)decimal\n\t");
+    printf("Enter Option No.: ");
     fflush(stdin);
     scanf("%d",&op);
+    printf("Enter the number (intigers only) : ");
     fflush(stdin);
     switch (op)
     {
@@ -60,28 +65,19 @@ int main()
             break;
     }
 
-    printf("In which number system you want to convert:\n\t1)Binary\n\t2)Ocatl\n\t3)Hex\n\t4)decimal\n\t");
-    scanf("%d",&op);
+    result1 = decimal_to_bin(decimal);
+    printf("Binary : ");
+    puts(result1);
 
-    switch (op)
-    {
-    case 1:
-        result = decimal_to_bin(decimal);
-        break;
-    
-    case 2:
-        result = decimal_to_hex(decimal);
-        break;
-    case 3:
-        result = decimal_to_oct(decimal);
-        break;
-    case 4:
-        printf("%d",decimal);
-        break;
-    }
-    if(op != 4)
-        puts(result);
+    result2 = decimal_to_hex(decimal);
+    printf("hex : ");
+    puts(result2);
 
+    result3 = decimal_to_oct(decimal);
+    printf("Oct : ");
+    puts(result3);
+
+    printf("Decimal : %d",decimal);
     return 0;
 }
 

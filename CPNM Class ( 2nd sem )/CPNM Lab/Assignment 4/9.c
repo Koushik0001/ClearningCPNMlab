@@ -1,3 +1,14 @@
+/*9. Write a C program that prints the following patterns for the input of n=5. The value of n is input
+by the user.
+A. 1
+  1 1
+ 1 1 1
+ 
+B.    1
+    1 2 1
+  1 2 3 2 1
+1 2 3 4 3 2 1 */
+
 #include<stdio.h>
 
 int main()

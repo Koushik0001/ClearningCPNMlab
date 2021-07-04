@@ -1,3 +1,6 @@
+/*11. Write a menu-driven program for accepting values in two square matrix of 3x3 dimension and
+generate their sum, difference and product.*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -10,22 +13,22 @@ int element(int*,int*,int);
 int main()
 {
     int **matrix1, r1, c1, **matrix2, r2, c2, **resultant;
-    char run = 'n';
-    printf("enter the order (row * column) of matrix1 : ");
+    char run = 'n',status='y';
+    printf("enter the order (row column) of matrix1 : ");
     scanf("%d%d",&r1,&c1);
 
     matrix1 = (int**) malloc(r1 * sizeof(int*));
     for (int i=0;i<r1; i++)
         matrix1[i] = (int*) malloc(c1 * sizeof(int));
-
-    printf("Ente the elements of matrix1 : \n");
+    printf("\nGive a space after entering each intiger of a row and hit 'enter' after entering the last element of a row. ");
+    printf("\nEnte the elements of matrix1 : \n");
     for (int i=0;i<r1; i++)
     {
         for (int j=0;j<c1;j++)
             scanf("%d",&matrix1[i][j]);        
     }
 
-    printf("enter the order (row * column) of matrix2 : ");
+    printf("enter the order (row column) of matrix2 : ");
     scanf("%d%d",&r2,&c2);
 
     matrix2 = (int**) malloc(r2 * sizeof(int*));
@@ -35,6 +38,7 @@ int main()
 
 
     printf("Ente the elements of matrix2 : \n");
+    fflush(stdin);
     for (int i=0;i<r2; i++)
     {
         for (int j=0;j<c2;j++)
@@ -52,32 +56,39 @@ int main()
         switch(op)
         {
             case 1:
+                status = 'y';
                 if(r1 != r2 || c1 != c2)
                 {
                     printf("\nSUMMATION NOT POSSIBLE\n ");
+                    status = 'n';
                     break;
                 }
                 resultant = sum_of_matrices(matrix1,r1,c1,matrix2,r2,c2);
                 break;
             case 2:
+                status = 'y';
                 if(r1 != r2 || c1 != c2)
                 {
                     printf("\nSUBTRACTION NOT POSSIBLE\n ");
+                    status = 'n';
                     break;
                 }
                 resultant = difference_of_matrices(matrix1,r1,c1,matrix2,r2,c2);
                 break;
             case 3:
+                status = 'y';
                 resultant = product_of_matrices(matrix1,r1,c1,matrix2,r2,c2,&rmr,&rmc);      
         }
-
-        printf("The result is : \n");
-        for (int i=0;i<rmr; i++)
+        if(status=='y')
         {
-            printf("\t");
-            for (int j=0;j<rmc;j++)
-                printf("%d\t",resultant[i][j]);
-            printf("\n");        
+            printf("The result is : \n");
+            for (int i=0;i<rmr; i++)
+            {
+                printf("\t");
+                for (int j=0;j<rmc;j++)
+                    printf("%8d\t",resultant[i][j]);
+                printf("\n");        
+            }
         }
         free(resultant);
         printf("Do you want to calculate again(y/n) : ");

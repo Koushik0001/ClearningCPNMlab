@@ -1,3 +1,6 @@
+/* 5.b. C program to find out sum of the following series. 𝑆 = 1.2*1! + 2.3*2! + 3.4*3! + 4.5*4! +
+. . . +n. (n + 1)*n!.*/
+
 #include<stdio.h>
 int factorial(int);
 

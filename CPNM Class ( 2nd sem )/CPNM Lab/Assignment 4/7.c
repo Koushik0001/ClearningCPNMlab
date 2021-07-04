@@ -1,7 +1,12 @@
+/*7. Write a program to print out all Armstrong numbers between 1 and 500. If the sum of cubes of
+each digit of the number is equal to the number itself, then the number is called an Armstrong
+number. For example, 153 = (1^3) + (5^3) + (3^3).*/
+
 #include<stdio.h>
 
 int main()
 {
+    printf("All Armstrong numbers between 1 and 500 are : \n");
     for(int i = 500;i>0;i--)
     {
         if(i>=100)
