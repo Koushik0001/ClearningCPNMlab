@@ -6,66 +6,58 @@ Octal, and Hex] and convert and display the same in any other amongst these.*/
 #include<string.h>
 #include<math.h>
 
-int extract_num(char);
-int binary_to_decimal(char*);
-int oct_to_decimal(char*);
-int hex_to_decimal(char*);
+int to_decimal(char*,int);
 
-char extract_char(int);
-char* decimal_to_bin(int);
-char* decimal_to_oct(int);
+char* decimal_to(int,int);
 char* decimal_to_hex(int);
 
 
 int main()
 {
-    int op,decimal,i=0;
-    char *result1,*result2,*result3,*result4, bin[100],oct[100],hex[100];
+    int op,decimal,i=0,base;
+    char *result1,*result2,*result3,*result4, nsystem[100];
     printf("Enter in which number system you want enter number:\n\t1)Binary\n\t2)Ocatl\n\t3)Hex\n\t4)decimal\n\t");
     printf("Enter Option No.: ");
     fflush(stdin);
     scanf("%d",&op);
+
     printf("Enter the number (intigers only) : ");
     fflush(stdin);
+
+    switch (op)
+    {
+    case 1:
+        base = 2;
+        break;
+    case 2:
+        base = 8;
+        break;
+    case 3:
+        base = 16;
+        break;
+    }
+
     switch (op)
     {
         case 1:
-            do
-            {
-                bin[i]=getchar();
-                i++;
-            }while(bin[i-1] != '\n');
-
-            bin[i-1] = '\0';
-            decimal = binary_to_decimal(bin);
-            break;
-        
         case 2:
-            do
-            {
-                oct[i]=getchar();
-                i++;
-            }while(oct[i-1] != '\n');
-
-            oct[i-1] = '\0';
-            decimal = oct_to_decimal(oct);
-            break;
         case 3:
             do
             {
-                hex[i]=getchar();
+                nsystem[i]=getchar();
                 i++;
-            }while(hex[i-1] != '\n');
+            }while(nsystem[i-1] != '\n');
 
-            hex[i-1] = '\0';
-            decimal = hex_to_decimal(hex);
+            nsystem[i-1] = '\0';
+            decimal = to_decimal(nsystem,base);
             break;
+        
         case 4:
             scanf("%d",&decimal);
             break;
     }
 
-    result1 = decimal_to_bin(decimal);
+    result1 = decimal_to(decimal,2);
     printf("Binary : ");
     puts(result1);
 
@@ -73,7 +65,7 @@ int main()
     printf("hex : ");
     puts(result2);
 
-    result3 = decimal_to_oct(decimal);
+    result3 = decimal_to(decimal,8);
     printf("Oct : ");
     puts(result3);
 
@@ -81,53 +73,22 @@ int main()
     return 0;
 }
 
-int binary_to_decimal(char bin[])
+int to_decimal(char nsystem[],int base)
 {
-    int decimal=0, len = strlen(bin);
+    int decimal=0, len = strlen(nsystem);
     for(int i=0;i<len;i++)
-        decimal += (extract_num(bin[i]) * pow(2,len-i-1));
+        decimal += ((int)(nsystem[i]) * pow(base,len-i-1));
     return(decimal);
 }
 
-int oct_to_decimal(char oct[])
-{
-    int decimal = 0, len = strlen(oct);
-    for(int i=0; i<len;i++)
-        decimal += extract_num(oct[i]) * pow(8,len-i-1);
-    return(decimal);
-}
-
-int hex_to_decimal(char hex[])
-{
-    int decimal = 0, len = strlen(hex);
-    for(int i=0; i<len;i++)
-        decimal += extract_num(hex[i]) * pow(16,len-i-1);
-    return(decimal);
-}
-
-char *decimal_to_bin(int decimal)
+char *decimal_to(int decimal,int result_base)
 {
     static char result[100];
     int temp = decimal,i=0;
     while(temp != 0)
     {
-        result[i] = extract_char(temp%2);
-        temp = temp/2;
-        i++;
-    }
-    result[i]='\0';
-    strrev(result);
-    return result;
-}
-
-char *decimal_to_oct(int decimal)
-{
-    static char result[100];
-    int temp = decimal,i=0;
-    while(temp != 0)
-    {
-        result[i] = extract_char(temp%8);
-        temp = temp/8;
+        result[i] = (char)((temp%result_base)+48);
+        temp = temp/result_base;
         i++;
     }
     result[i]='\0';
@@ -142,47 +103,13 @@ char *decimal_to_hex(int decimal)
     while(temp != 0)
     {
         if(temp%16 <10)
-            result[i] = extract_char(temp%16);
+            result[i] = (char)((temp%16)+48);
         else
-        {
-            if(temp%16 == 10)
-                result[i] = 'A';
-            else if(temp%16 == 11)
-                result[i] = 'B';
-            else if(temp%16 == 12)
-                result[i] = 'C';
-            else if(temp%16 == 13)
-                result[i] = 'D';
-            else if(temp%16 == 14)
-                result[i] = 'E';
-            else if(temp%16 == 15)
-                result[i] = 'F';
-        }
+            result[i] = (char)((temp%16)-10+65);
         temp = temp/16;
         i++;
     }
     result[i]='\0';
     strrev(result);
     return result;
-}
-
-int extract_num(char ch)
-{
-    if(ch == 'A'||ch == 'B'||ch == 'C'||ch == 'D'|| ch == 'E'||ch == 'F')
-    {
-        int ans = ch-'A'+10;
-        return(ans);
-    }
-    else
-    {
-        int ans = ch - '0';
-        return(ans);
-    }
-}
-
-char extract_char(int num)
-{
-    char ch;
-    ch = (char)(num+48);
-    return (ch);
 }
