@@ -52,7 +52,7 @@ int main()
         }
     }
 
-    printf("The element(s) with highest frequency %d is (are) : ",x);
+    printf("\n10The element(s) with highest frequency %d is (are) : ",x);
     for(int i=0; i<n ; i++)
     {
         if(frequencies_of_elements[i] == x)
@@ -76,6 +76,6 @@ int main()
         if(frequencies_of_elements[i] == x)
             printf("%d ",array1[i]);
     }
-
+    printf("\n\n");
     return 0;
 }

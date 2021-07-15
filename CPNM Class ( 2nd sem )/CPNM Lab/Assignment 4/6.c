@@ -7,69 +7,72 @@ Octal, and Hex] and convert and display the same in any other amongst these.*/
 #include<math.h>
 
 int to_decimal(char*,int);
-
 char* decimal_to(int,int);
-char* decimal_to_hex(int);
+int extract_num(char);
 
 
 int main()
 {
     int op,decimal,i=0,base;
-    char *result1,*result2,*result3,*result4, nsystem[100];
-    printf("Enter in which number system you want enter number:\n\t1)Binary\n\t2)Ocatl\n\t3)Hex\n\t4)decimal\n\t");
-    printf("Enter Option No.: ");
-    fflush(stdin);
-    scanf("%d",&op);
+    char *result1,*result2,*result3, nsystem[100],run;
 
-    printf("Enter the number (intigers only) : ");
-    fflush(stdin);
-
-    switch (op)
+    do
     {
-    case 1:
-        base = 2;
-        break;
-    case 2:
-        base = 8;
-        break;
-    case 3:
-        base = 16;
-        break;
-    }
+        printf("Enter in which number system you want enter number:\n\t1)decimal\n\t2)Binary\n\t3)Ocatl\n\t4)Hex\n\t");
+        printf("Enter Option No.: ");
+        fflush(stdin);
+        scanf("%d",&op);
 
-    switch (op)
-    {
-        case 1:
-        case 2:
-        case 3:
-            do
-            {
-                nsystem[i]=getchar();
-                i++;
-            }while(nsystem[i-1] != '\n');
+        printf("Enter the number (intigers only) : ");
+        fflush(stdin);
 
-            nsystem[i-1] = '\0';
-            decimal = to_decimal(nsystem,base);
-            break;
-        
-        case 4:
-            scanf("%d",&decimal);
-            break;
-    }
+        switch (op)
+        {
+            case 2:
+                base = 2;
+                break;
+            case 3:
+                base = 8;
+                break;
+            case 4:
+                base = 16;
+                break;
+        }
 
-    result1 = decimal_to(decimal,2);
-    printf("Binary : ");
-    puts(result1);
+        switch (op)
+        {
+            case 1:
+                scanf("%d",&decimal);
+                break;
+            default:
+                do
+                {
+                    nsystem[i]=getchar();
+                    i++;
+                }while(nsystem[i-1] != '\n');
 
-    result2 = decimal_to_hex(decimal);
-    printf("hex : ");
-    puts(result2);
+                nsystem[i-1] = '\0';
+                decimal = to_decimal(nsystem,base);
+        }
 
-    result3 = decimal_to(decimal,8);
-    printf("Oct : ");
-    puts(result3);
+        result1 = decimal_to(decimal,2);
+        printf("Binary : ");
+        puts(result1);
 
-    printf("Decimal : %d",decimal);
+        result2 = decimal_to(decimal,8);
+        printf("Oct : ");
+        puts(result2);
+
+        printf("Decimal : %d",decimal);
+
+        result3 = decimal_to(decimal,16);
+        printf("\nhex : ");
+        puts(result3);
+
+        printf("\n\nDo you want to enter another humber(y/n) : ");
+        run = getchar();
+    }while (run = 'y');
+
     return 0;
 }
 
@@ -77,7 +80,7 @@ int to_decimal(char nsystem[],int base)
 {
     int decimal=0, len = strlen(nsystem);
     for(int i=0;i<len;i++)
-        decimal += ((int)(nsystem[i]) * pow(base,len-i-1));
+        decimal += (extract_num(nsystem[i]) * pow(base,len-i-1));
     return(decimal);
 }
 
@@ -87,7 +90,10 @@ char *decimal_to(int decimal,int result_base)
     int temp = decimal,i=0;
     while(temp != 0)
     {
-        result[i] = (char)((temp%result_base)+48);
+         if(temp % result_base <10)
+            result[i] = (char)((temp % result_base)+48);
+        else
+            result[i] = (char)((temp % result_base)-10+65);
         temp = temp/result_base;
         i++;
     }
@@ -96,20 +102,12 @@ char *decimal_to(int decimal,int result_base)
     return result;
 }
 
-char *decimal_to_hex(int decimal)
+int extract_num(char c)
 {
-    static char result[100];
-    int temp = decimal, i=0;
-    while(temp != 0)
-    {
-        if(temp%16 <10)
-            result[i] = (char)((temp%16)+48);
-        else
-            result[i] = (char)((temp%16)-10+65);
-        temp = temp/16;
-        i++;
-    }
-    result[i]='\0';
-    strrev(result);
-    return result;
+    int num;
+    if(c < 58 && c > 47)
+        num = c - '0';
+    else
+        num = c - 'A' + 10;
+    return(num);
 }
