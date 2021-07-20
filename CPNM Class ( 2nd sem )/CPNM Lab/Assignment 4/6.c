@@ -133,7 +133,7 @@ char *decimal_to(float decimal,int result_base)
         result[i]='.';
         i++;
         temp = decimal - intiger_part(decimal);
-        while (temp != 0 || temp>0.0000000000000000001)
+        while (temp != 0 && temp>0.0000000000000000001)
         {
             float t = temp * result_base;
             int x = intiger_part(t);
