@@ -26,7 +26,7 @@ int main()
         fflush(stdin);
         scanf("%d",&op);
 
-        printf("Enter the number (intigers only) : ");
+        printf("Enter the number: ");
         fflush(stdin);
         
         switch (op)
@@ -79,12 +79,12 @@ int main()
 
         printf("Decimal : %f",decimal);
 
-        printf("\ndhuklam\n");
         result3 = decimal_to(decimal,16);
         printf("\nhex : ");
         puts(result3);
 
         printf("\n\nDo you want to enter another humber(y/n) : ");
+        fflush(stdin);
         run = getchar();
 
         k = 0;i=0;
@@ -98,14 +98,13 @@ float to_decimal(char nsystem[],int base)
 {
     float decimal=0, l=-1;
     int len = strlen(nsystem);
-    printf("\nlength of the string = %d\n",len);
 
     for(int i=0;i<position_of_point;i++)
         decimal += (extract_num(nsystem[i]) * pow(base,position_of_point-i-1));
 
     for(int i=position_of_point+1; i<len-1; i++)
     {
-        decimal += (extract_num(nsystem[i]) * pow(base,l));
+        decimal += extract_num(nsystem[i]) * pow(base,l);
         l--;
     }
     return(decimal);
