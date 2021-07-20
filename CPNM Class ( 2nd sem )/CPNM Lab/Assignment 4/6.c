@@ -6,15 +6,18 @@ Octal, and Hex] and convert and display the same in any other amongst these.*/
 #include<string.h>
 #include<math.h>
 
-int to_decimal(char*,int);
-char* decimal_to(int,int);
+float to_decimal(char*,int);
+char* decimal_to(float,int);
 int extract_num(char);
+int intiger_part(float);
 
+int position_of_point;
 
 int main()
 {
-    int op,decimal,i=0,base;
-    char *result1,*result2,*result3, nsystem[100],run;
+    int op, i=0, base, k=0;
+    float decimal;
+    char *result1, *result2, *result3, nsystem[100], run;
 
     do
     {
@@ -25,7 +28,7 @@ int main()
 
         printf("Enter the number (intigers only) : ");
         fflush(stdin);
-
+        
         switch (op)
         {
             case 2:
@@ -42,16 +45,27 @@ int main()
         switch (op)
         {
             case 1:
-                scanf("%d",&decimal);
+                scanf("%f",&decimal);
                 break;
             default:
                 do
                 {
                     nsystem[i]=getchar();
+
+                    if(nsystem[i] == '.')
+                    {
+                        position_of_point = i;
+                        k++;
+                    }
+
                     i++;
                 }while(nsystem[i-1] != '\n');
-
-                nsystem[i-1] = '\0';
+                if(k == 0)
+                {
+                    position_of_point = i-1;
+                    nsystem[i-1] = '.';
+                }
+                nsystem[i] = '\0';
                 decimal = to_decimal(nsystem,base);
         }
 
@@ -63,42 +77,77 @@ int main()
         printf("Oct : ");
         puts(result2);
 
-        printf("Decimal : %d",decimal);
+        printf("Decimal : %f",decimal);
 
+        printf("\ndhuklam\n");
         result3 = decimal_to(decimal,16);
         printf("\nhex : ");
         puts(result3);
 
         printf("\n\nDo you want to enter another humber(y/n) : ");
         run = getchar();
-    }while (run = 'y');
+
+        k = 0;i=0;
+        position_of_point = 0;
+    }while (run == 'y');
 
     return 0;
 }
 
-int to_decimal(char nsystem[],int base)
+float to_decimal(char nsystem[],int base)
 {
-    int decimal=0, len = strlen(nsystem);
-    for(int i=0;i<len;i++)
-        decimal += (extract_num(nsystem[i]) * pow(base,len-i-1));
+    float decimal=0, l=-1;
+    int len = strlen(nsystem);
+    printf("\nlength of the string = %d\n",len);
+
+    for(int i=0;i<position_of_point;i++)
+        decimal += (extract_num(nsystem[i]) * pow(base,position_of_point-i-1));
+
+    for(int i=position_of_point+1; i<len-1; i++)
+    {
+        decimal += (extract_num(nsystem[i]) * pow(base,l));
+        l--;
+    }
     return(decimal);
 }
 
-char *decimal_to(int decimal,int result_base)
+char *decimal_to(float decimal,int result_base)
 {
     static char result[100];
-    int temp = decimal,i=0;
-    while(temp != 0)
+    int intiger = decimal, i=0;
+    float fraction = decimal - intiger, temp;
+
+    while(intiger != 0 )
     {
-         if(temp % result_base <10)
-            result[i] = (char)((temp % result_base)+48);
+        if(intiger % result_base <10)
+            result[i] = (char)((intiger % result_base)+48);
         else
-            result[i] = (char)((temp % result_base)-10+65);
-        temp = temp/result_base;
+            result[i] = (char)((intiger % result_base)-10+65);
+        intiger = intiger/result_base;
         i++;
     }
     result[i]='\0';
     strrev(result);
+    
+    if(fraction != 0)
+    {
+        result[i]='.';
+        i++;
+        temp = decimal - intiger_part(decimal);
+        while (temp != 0 || temp>0.0000000000000000001)
+        {
+            float t = temp * result_base;
+            int x = intiger_part(t);
+            if(x<10)
+                result[i] = (char)(x +'0');
+            else
+                result[i] = (char)(x-10+'A');
+
+            temp = t - x;
+            i++;  
+        }
+    }
+    result[i]='\0';
     return result;
 }
 
@@ -110,4 +159,10 @@ int extract_num(char c)
     else
         num = c - 'A' + 10;
     return(num);
+}
+
+int intiger_part(float x)
+{
+    int intiger = x;
+    return(intiger);
 }
