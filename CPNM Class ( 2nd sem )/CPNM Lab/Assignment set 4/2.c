@@ -1,10 +1,9 @@
-/* 12.a. Write a program in C to read n number of values in an array. After that, count the total
-number of duplicate elements in that array. Then copy the elements except the duplicate
-elements of that array into another array and display this array in reverse order.*/
+/* 2. Write a program in C to read n number of values in an array. After that, count the total number of 
+duplicate elements in that array. Then copy the elements except the duplicate elements of that array 
+into another array and display this array in reverse order.*/
 
 #include<stdio.h>
 #include<stdlib.h>
-
 
 int main()
 {
