@@ -31,6 +31,18 @@ int main()
         scanf("%f",&coefficients[i][n]);
         printf("\t\t");
     }
+    printf("\nThe equations are : \n");
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            if(j!= n-1)
+                printf("%.3fx%d + ",coefficients[i][j],j+1);
+            else
+                printf("%.3fx%d = %.3f\n",coefficients[i][j],j+1,coefficients[i][n]);
+        }
+    }
+    printf("\n");
     gauss();
 
     printf("\nThe results are : \n");
