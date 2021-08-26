@@ -4,14 +4,22 @@ method, Jacobi’s method and Gauss Elimination with pivoting method*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-float *results,**coefficients;
-int n;
+
+#define et 0.0001
+
+float *results,**coefficients,*current_values,*new_values;
+int n,num=0;
+
 void gauss();
 void pivoting(int);
+void jacobi();
+int compare();
+
+float vinva(int);
 
 int main()
 {
-    int i,j;
+    int i,j, op;
     printf("Enter the number of unknowns : ");
     scanf("%d",&n);
     coefficients = (float**)malloc(n * sizeof(float*));
@@ -43,12 +51,33 @@ int main()
         }
     }
     printf("\n");
-    gauss();
-
-    printf("\nThe results are : \n");
-    for (i = 0; i <n ; i++)
-        printf("x%d = %f\n",i+1,results[i]);
+    printf("Which you want to use :\n\t1)Gauss Elimination with pivoting method\n\t2)Jacobi\'s method: ");
+    scanf("%d",&op);
+    switch (op)
+    {
+    case 1:
+        gauss();
+        printf("\nThe results are : \n");
+        for (i = 0; i <n ; i++)
+            printf("x%d = %f\n",i+1,results[i]);
+        break;
     
+    case 2:
+        current_values = (float*)malloc(n * sizeof(float));
+        new_values = (float*)malloc(n * sizeof(float));
+        printf("Enter the initial values for jacobi\'s Method : \n");
+        for (i=0; i<n; i++)
+        {
+            printf("x%d = ",i+1);
+            fflush(stdin);
+            scanf("%f",&current_values[i]);
+        }
+        jacobi();
+        printf("The results are : ");
+        for (i=0; i<n; i++)
+            printf("\nx%d = %f",i+1, new_values[i]);
+        break;
+    }
     return 0;
 }
 
@@ -97,4 +126,52 @@ void pivoting(int pivot_row)
             continue;
         }
     }
+}
+
+void jacobi()
+{   
+    for (int j=0;j<n; j++)
+        new_values[j] = vinva(j);
+    if(compare() ==0 || num == 0)
+    {
+        for (int i=0;i<n; i++)
+            current_values[i] = new_values[i];
+        num++;
+        jacobi();
+    }
+}
+
+int compare()
+{
+    int i;
+    float *defference,x;
+    defference = (float * )malloc(n * sizeof(float));
+    for (i= 0; i<n ; i++)
+        defference[i] = fabs(new_values[i]-current_values[i]);
+    x = defference[0]; 
+    for (i= 0; i<n ; i++)
+    {
+        if(defference[i]>x)
+        {
+            x=defference[i];
+            continue;
+        }
+    }
+    if(x<et)
+        return (1);
+    else
+        return (0);
+}
+
+float vinva(int x)
+{
+    float t1=0,t2,result;
+    for(int k=0;k<n;k++)
+    {
+        if(k != x)        
+            t1 += (current_values[k]) * (coefficients[x][k]);
+    }
+    t2 = coefficients[x][n] - t1;
+    result = t2/coefficients[x][x];
+    return(result);
 }
